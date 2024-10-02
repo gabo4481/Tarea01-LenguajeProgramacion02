@@ -35,9 +35,15 @@ def buscar_nombres():
     with open("nombres.txt","r") as archivo:
         nombre_buscado = input("\nIngresa el nombre que deseas buscar: ")
         nombres = archivo.readlines()
+        condicion = False
         for linea_numero,nombre in enumerate(nombres,start=1):
             if nombre_buscado.lower() == nombre.strip().lower():
                 print(f"El nombre {nombre_buscado} se encuentra en la linea {linea_numero}")
+                condicion = True
+        if condicion == False:
+            print("Nombre no encontrado.")
+            
+            
 
 
 #creacion de funcion de control para la llamada de funciones
@@ -62,7 +68,6 @@ def control_de_archivos(seleccion,contador):
 i = True
 contador = 0
 while i:
-
     print("\nSelecciona una opcion: ")
     print("1) Agregar nombre. ")
     print("2) Mostrar nombres. ")
@@ -71,9 +76,12 @@ while i:
     opcion = int(input("Ingresa tu opcion: "))
     
     #llamada a funcion de control
-    control_de_archivos(opcion,contador)
+    if opcion >= 1 or opcion <= 4:
+        control_de_archivos(opcion,contador)
+        contador += 1
+    else:
+        print("Seleccion invalida. Intente nuevamente")
     
-    contador += 1
     #iterador cambia a falso si el usuario elige la opcion 4
     if opcion == 4:
         i = False
